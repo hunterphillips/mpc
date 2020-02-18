@@ -1,3 +1,7 @@
+body {
+	background: #000000e3;
+}
+
 #mpc-containter {
 	display: flex;
 	flex-direction: column;
@@ -42,6 +46,14 @@ select {
 .mpcIcon {
 	height: 1.4em;
 	opacity: 0.75;
+}
+
+#upload-span input {
+	display: none;
+}
+#upload-span .upload:hover {
+	opacity: 0.6;
+	cursor: pointer;
 }
 
 .mpcRangeInput {
@@ -102,4 +114,50 @@ select {
 
 .drumIcon {
 	height: 2.5em;
+}
+
+/* Tooltip container */
+.tooltip {
+	position: relative;
+	display: inline-block;
+	border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+#upload-span .tooltiptext {
+	visibility: hidden;
+	width: 120px;
+	background-color: #2acff2;
+	color: #fff;
+	text-align: center;
+	padding: 0.5em;
+	border-radius: 1em;
+	opacity: 0.75;
+	font-family: monospace;
+	font-size: 11px;
+	position: absolute;
+	z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+#upload-span:hover .tooltiptext {
+	visibility: visible;
+}
+
+/* error msg */
+.error-box {
+	background: #f57070;
+	color: white;
+	width: 11em;
+	text-align: center;
+	border-radius: 0.4em;
+	padding: 1em;
+	margin: auto;
+	opacity: 0.85;
+	font-family: sans-serif;
+	position: absolute;
+	left: 50%;
+	margin-left: -6em;
+	top: 8em;
+	display: none;
 }
