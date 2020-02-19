@@ -1,5 +1,3 @@
-// TODO: upload
-
 // static jquery selectors
 var padContainer = $("#pad-container");
 var volumeInput = $("#volumeInput");
@@ -53,6 +51,7 @@ $("body").keydown(e => {
 		let targetPad = keyMap[e.key].pad;
 		wavesurfer.regions.list[targetPad].play();
 	}
+	if (e.code == "Space") toggleDrums();
 });
 
 $("body").keyup(e => {
@@ -62,7 +61,6 @@ $("body").keyup(e => {
 			"radial-gradient(#232323, #2f2f2f)"
 		);
 		keyMap[e.key].pressed = false;
-		//wavesurfer.stop();
 	}
 });
 
@@ -84,3 +82,10 @@ drums.change(function() {
 	$("#drumSource").attr("src", `/audio/drums/${$(this).val()}.mp3`);
 	document.getElementById("drumAudio").load();
 });
+
+// Play/Pause Drum audio
+function toggleDrums() {
+	return drumAudio.prop("paused")
+		? drumAudio.trigger("play")
+		: drumAudio.trigger("pause");
+}

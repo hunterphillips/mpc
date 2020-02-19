@@ -20,6 +20,7 @@ wavesurfer.load("/audio/pastels.mp3");
 // update wave on sample selection
 samples.change(function() {
 	let newSong = $(this).val();
+	$(this).blur();
 	wavesurfer.empty();
 	wavesurfer.clearRegions();
 	wavesurfer.load(`/audio/${newSong}.mp3`);
