@@ -17,8 +17,7 @@ signUp.click(e => {
 	auth
 		.createUserWithEmailAndPassword(email, password)
 		.then(e => {
-			console.log(e);
-			window.location.href = "/";
+			return (window.location.href = "/");
 		})
 		.catch(err => {
 			console.log("Error", err);
@@ -31,8 +30,8 @@ login.click(e => {
 });
 
 // password 'Enter' key press
-$("#userPassword").keypress(function(e) {
-	if (e.key == "Enter") {
+$("#userPassword").keypress(e => {
+	if (e.key === "Enter") {
 		loginUser();
 	}
 });
@@ -48,10 +47,9 @@ function loginUser() {
 	auth
 		.signInWithEmailAndPassword(email, password)
 		.then(e => {
-			window.location.href = "/";
+			return (window.location.href = "/");
 		})
 		.catch(err => {
-			console.log("Error", err);
 			if (err.code) {
 				if (err.code.includes("user-not-found")) {
 					return loginError(
@@ -61,6 +59,7 @@ function loginUser() {
 				if (err.code.includes("wrong-password"))
 					return loginError("Invalid email/password combination");
 			}
+			return console.log("Error", err);
 		});
 }
 
@@ -68,7 +67,7 @@ function loginUser() {
     check if fields are empty
     use html email format check & check for '.com' in string */
 function validateLoginFields(emailElement, email, password) {
-	if (email == "" || password == "")
+	if (email === "" || password === "")
 		return loginError("Please enter a valid email & password");
 	if (
 		!emailElement.checkValidity() ||

@@ -13,6 +13,7 @@ uploadIcon.click(e => {
 		showInputPopup(e, "instructions");
 		hasSeenDemo = true;
 	}
+	return true;
 });
 
 // on upload input event > validate file type/size > upload to FB
@@ -20,8 +21,8 @@ uploadInput.on("change", function(e) {
 	let filePath = this.value;
 	let file = e.target.files[0];
 	if (!filePath || !file) return showError("fileLoad");
-	if (!validateAudioFile(filePath, file)) return;
-	uploadAudio(file);
+	if (!validateAudioFile(filePath, file)) return false;
+	return uploadAudio(file);
 });
 
 // error if file not .mp3 OR over max length
@@ -40,6 +41,7 @@ function validateAudioFile(filePath, file) {
 		if (audio.duration > maxLength) {
 			return showError("fileLength");
 		}
+		return true;
 	};
 	audio.src = URL.createObjectURL(file);
 	return true;
@@ -53,13 +55,13 @@ function uploadAudio(file) {
 	let uploadTask = storageRef.put(file);
 	uploadTask.on(
 		"state_changed",
-		function progress() {
+		() => {
 			// TODO: upload progress UI > https://www.youtube.com/watch?v=SpxHVrpfGgU
 		},
-		function error(err) {
+		err => {
 			console.log("UPLOAD ERROR ", err);
 		},
-		function complete() {
+		() => {
 			// TODO: upload complete UI
 			console.log("COMPLETED");
 		}

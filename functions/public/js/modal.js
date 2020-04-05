@@ -15,7 +15,7 @@ function modalMessage(msg) {
 					   `
 	};
 	let content = msgs[msg];
-	if (currentModalContent != content) {
+	if (currentModalContent !== content) {
 		modalElement.html(content);
 		currentModalContent = content;
 	}

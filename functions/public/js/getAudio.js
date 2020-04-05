@@ -11,8 +11,8 @@ auth.onAuthStateChanged(fbUser => {
 		// Find all the prefixes and items.
 		userStorage
 			.listAll()
-			.then(function(res) {
-				res.items.forEach(function(item) {
+			.then(res => {
+				res.items.forEach(item => {
 					console.log("storage item? ", item);
 					let name = item.name;
 					let path = item.fullPath;
@@ -20,13 +20,12 @@ auth.onAuthStateChanged(fbUser => {
 						`<option value="${name}" url="${path}">${name}</option>`
 					);
 				});
+				return;
 			})
-			.catch(function(error) {
+			.catch(error => {
 				console.log("User storage error ", error);
 			});
 	} else {
 		//
 	}
 });
-
-// "public": "./dist/my-app-name",

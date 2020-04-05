@@ -24,7 +24,7 @@ logout.click(() => {
 		.signOut()
 		.then(() => {
 			console.log("logout successful");
-			location.reload();
+			return location.reload();
 		})
 		.catch(error => {
 			console.log("Logout Error: ", error);
