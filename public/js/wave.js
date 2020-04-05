@@ -1,5 +1,8 @@
-"use strict";
-
+/**********    WaveSurfer Init
+ * load wave graph for initial sound
+ * add wave Regions
+ * add corresponding controller pads
+ ****************/
 // TODO: initial state?  upload sample
 
 let initialState = true;
@@ -17,14 +20,21 @@ var wavesurfer = WaveSurfer.create({
 // initialize sound file
 wavesurfer.load("/audio/pastels.mp3");
 
-// update wave on sample selection
+// update wave on sample selection //.find(':selected').attr('isred');
 samples.change(function() {
-	let newSong = $(this).val();
+	let newSong = $(this)
+		.find(":selected")
+		.attr("url");
 	$(this).blur();
+	loadSample(newSong);
+});
+
+// load new WaveSurfer file
+function loadSample(path) {
 	wavesurfer.empty();
 	wavesurfer.clearRegions();
-	wavesurfer.load(`/audio/${newSong}.mp3`);
-});
+	wavesurfer.load(`${path}`);
+}
 
 // once file is loaded
 wavesurfer.on("ready", () => {

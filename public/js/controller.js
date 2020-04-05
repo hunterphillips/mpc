@@ -51,7 +51,7 @@ $("body").keydown(e => {
 		let targetPad = keyMap[e.key].pad;
 		wavesurfer.regions.list[targetPad].play();
 	}
-	if (e.code == "Space") toggleDrums();
+	if (e.code === "Space") toggleDrums();
 });
 
 $("body").keyup(e => {
