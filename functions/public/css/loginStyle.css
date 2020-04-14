@@ -1,0 +1,104 @@
+body {
+	/* background: #ffcbcbe3; */
+	margin: 0;
+	background: radial-gradient(white, #fffee5);
+	font-family: sans-serif;
+}
+/* #appContainer { */
+#appContainer::after {
+	content: "";
+	/* background-image: url(/img/wonderwoman.jpg); */
+	background-image: url(/img/wwcrop.jpg);
+	opacity: 0.75;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	position: absolute;
+	z-index: -1;
+	/* background-size: 96%; */
+	background-size: cover;
+}
+
+/* back arrow */
+#backBtn img {
+	width: 2.75em;
+	position: absolute;
+	margin: 2em;
+	opacity: 0.35;
+}
+#backBtn {
+	opacity: 0.5;
+	transition: all 150ms ease;
+}
+#backBtn:hover {
+	opacity: 1;
+	cursor: pointer;
+}
+
+#appInnerwrap {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	justify-content: space-evenly;
+}
+
+/* login */
+#loginContainer {
+	padding: 0.5em;
+	border-radius: 2px;
+	color: #383838;
+	display: flex;
+	flex-direction: column;
+	width: 20em;
+	margin: auto;
+}
+#loginContainer > input {
+	border: none;
+	background: transparent;
+	border-bottom: 1px solid gray;
+	padding: 0.5em;
+	padding-left: 0;
+	font-family: monospace;
+	letter-spacing: 0.3px;
+	font-size: 1.1em;
+}
+#loginContainer > input:focus {
+	outline: none;
+}
+
+#loginBtnWrap {
+	display: flex;
+	margin-top: 0.25em;
+}
+
+.login-btn {
+	height: 2em;
+	width: 5em;
+	border: 1px solid #404040;
+	/* line-height: 2em; */
+	padding-left: 0.5em;
+	margin-right: 0.5em;
+	font-size: 0.95em;
+	border-radius: 2px;
+	text-align: left;
+}
+.login-btn:hover {
+	cursor: pointer;
+}
+
+/* error */
+#errorWrap {
+	margin-top: 1em;
+	color: #ca6969;
+	height: 1em;
+}
+#loginError {
+	font-family: monospace;
+	font-size: 1.15em;
+	display: none;
+}
+
+#loginError code {
+	font-weight: 600;
+}
