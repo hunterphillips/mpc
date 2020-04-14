@@ -3,7 +3,6 @@
  * add wave Regions
  * add corresponding controller pads
  ****************/
-// TODO: initial state?  upload sample
 
 let initialState = true;
 

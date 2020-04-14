@@ -2,7 +2,8 @@
 var errorMsgs = {
 	fileType: `File type error. Please select an <code>.mp3</code> file no longer than 90 seconds.`,
 	fileLength: `Audio duration limit. Please select an audio file under <code>90</code> seconds in length.`,
-	fileLoad: `Hmm, there was an error reading that file.`
+	fileLoad: `Hmm, there was an error reading that file.`,
+	configName: `Please enter a valid name to save your settings`
 };
 
 // fade in/out error div

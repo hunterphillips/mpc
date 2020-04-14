@@ -42,7 +42,7 @@ body {
 	top: 1em;
 	left: 1em;
 	padding: 0.5em;
-	font-size: 0.95em;
+	font-size: 1.05em;
 	border-radius: 2px;
 	color: #383838;
 	display: flex;
@@ -76,7 +76,7 @@ body {
 	border: 1px solid gainsboro;
 	margin-bottom: 1em;
 	padding: 0.5em 1em;
-	padding-bottom: 2em;
+	padding-bottom: 1em;
 	border-radius: 15px;
 	background: #2b2b2b;
 	/* background: #88ab9b; */
@@ -185,6 +185,39 @@ a:focus {
 	background: radial-gradient(#232323, #2f2f2f);
 }
 
+/* Save / Load Config  */
+#saveConfigIcon {
+	height: 1.5em;
+	padding-top: 0.5em;
+}
+#configWrap button,
+#configWrap select {
+	color: aquamarine;
+	background: #a4f1cd2e;
+	margin: 0.2em 0.5em;
+	border: 1px solid;
+	border-radius: 4px;
+	width: 11em;
+	margin-top: 0.75em;
+	height: 2em;
+	text-transform: uppercase;
+	font-family: monospace;
+}
+
+#configWrap select {
+	padding-left: 1.5em;
+}
+
+#configWrap button,
+select:hover {
+	cursor: pointer;
+}
+
+#configSelect option {
+	background-color: aquamarine;
+	color: #3e3e3e;
+}
+
 /* wave */
 #waveform {
 	background: floralwhite;
@@ -258,6 +291,14 @@ a:focus {
 }
 #modal-1-content a:link {
 	text-decoration: none;
+}
+
+/* config modal */
+#modal-config input {
+	padding: 0.5em;
+}
+#modal-config input:focus {
+	outline: none;
 }
 
 /* error msg */

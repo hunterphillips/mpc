@@ -1,6 +1,6 @@
 // static jquery selectors
-var padContainer = $("#pad-container");
-var volumeInput = $("#volumeInput");
+const padContainer = $("#pad-container");
+const volumeInput = $("#volumeInput");
 
 // mpc pad objects
 const keyMap = {

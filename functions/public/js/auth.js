@@ -1,11 +1,12 @@
 var logout = $("#logoutBtn");
-var auth = firebase.auth();
+const auth = firebase.auth();
+var userID = "";
 var loggedIn = false;
 
 // check if user logged in --> hide/show login/out buttons accordingly
 auth.onAuthStateChanged(fbUser => {
 	if (fbUser) {
-		console.log(fbUser);
+		userID = fbUser.uid;
 		// console.log(fbUser);
 		$("#loginBtn").hide();
 		$("#logoutBtn").show();

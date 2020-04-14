@@ -1,7 +1,7 @@
 var hasSeenDemo = false; // track if upload instructions have displayed
-var maxLength = 90; // max audio length (seconds)
-var uploadIcon = $("#upload-span .upload"); // upload icon to click
-var uploadInput = $("#upload-input"); // upload file input element
+const maxLength = 90; // max audio length (seconds)
+const uploadIcon = $("#upload-span .upload"); // upload icon to click
+const uploadInput = $("#upload-input"); // upload file input element
 
 // Upload inital click
 uploadIcon.click(e => {

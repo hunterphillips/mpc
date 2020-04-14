@@ -10,7 +10,9 @@
 	</head>
 
 	<body>
-		<h1 style="text-align: center;">test</h1>
+		<h1 style="text-align: center; height: 0; margin: 0; opacity: .275;">
+			Beta v1.0
+		</h1>
 		<div id="appContainer">
 			<div id="appInnerwrap">
 				<!-- <header>
@@ -38,7 +40,9 @@
 							/>
 						</span>
 						<select name="sampleSelect" id="sampleSelect" class="mpcSelect">
-							<option value="pastels" selected>pastels</option>
+							<option value="pastels" url="/audio/pastels.mp3" selected
+								>pastels
+							</option>
 						</select>
 						<!-- Upload Icon -->
 						<span id="upload-span" style="vertical-align: middle;">
@@ -97,8 +101,38 @@
 							/></span>
 						</div>
 					</div>
+					<!-- Save Config icon -->
+					<!-- <img id="saveConfigIcon" src="img/controls.png"></img> -->
+					<div id="configWrap">
+						<button id="configSave">save settings</button>
+						<select name="configSelect" id="configSelect" class="config-select">
+							<option value="" selected disabled hidden>load saved</option>
+						</select>
+					</div>
 				</div>
 
+				<!-- Drummloops -->
+				<div id="drumloop-div">
+					<div id="drumWrap" style="padding: 1em;">
+						<span style="vertical-align: top; height: 3em;">
+							<img class="mpcIcon drumIcon" src="img/drum-set.png" alt="" />
+						</span>
+						<select name="drumSelect" id="drumSelect" class="mpcSelect">
+							<option value="lofi_87bpm" selected>lofi_87bpm</option>
+						</select>
+					</div>
+
+					<!-- loop audio player -->
+					<audio controls loop id="drumAudio">
+						<source
+							id="drumSource"
+							src="audio/drums/lofi_87bpm.mp3"
+							type="audio/ogg"
+						/>
+					</audio>
+				</div>
+
+				<!-- MODAL -->
 				<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
 					<div class="modal__overlay" tabindex="-1" data-micromodal-close>
 						<div
@@ -134,25 +168,35 @@
 					</div>
 				</div>
 
-				<!-- Drummloops -->
-				<div id="drumloop-div">
-					<div id="drumWrap" style="padding: 1em;">
-						<span style="vertical-align: top; height: 3em;">
-							<img class="mpcIcon drumIcon" src="img/drum-set.png" alt="" />
-						</span>
-						<select name="drumSelect" id="drumSelect" class="mpcSelect">
-							<option value="lofi_87bpm" selected>lofi_87bpm</option>
-						</select>
+				<!-- config save Modal -->
+				<div
+					class="modal micromodal-slide"
+					id="modal-config"
+					aria-hidden="true"
+				>
+					<div class="modal__overlay" tabindex="-1" data-micromodal-close>
+						<div
+							class="modal__container"
+							role="dialog"
+							aria-modal="true"
+							aria-labelledby="modal-config-title"
+						>
+							<input type="text" id="configName" maxlength="15" />
+							<button
+								class="modal__btn"
+								data-custom-close="modal-config"
+								style="background: #94d694;color: white;"
+							>
+								submit
+							</button>
+							<button
+								class="modal__btn cancelBtn"
+								style="background: #ef7171;color: white;"
+							>
+								cancel
+							</button>
+						</div>
 					</div>
-
-					<!-- loop audio player -->
-					<audio controls loop id="drumAudio">
-						<source
-							id="drumSource"
-							src="audio/drums/lofi_87bpm.mp3"
-							type="audio/ogg"
-						/>
-					</audio>
 				</div>
 
 				<!-- waveform container -->
@@ -167,6 +211,7 @@
 		<!-- SDKs for Firebase products https://firebase.google.com/docs/web/setup#available-libraries -->
 		<script src="/__/firebase/7.11.0/firebase-auth.js"></script>
 		<script src="/__/firebase/7.11.0/firebase-storage.js"></script>
+		<script src="/__/firebase/7.11.0/firebase-firestore.js"></script>
 		<script src="/__/firebase/7.11.0/firebase-analytics.js"></script>
 		<!-- Initialize Firebase -->
 		<script src="/__/firebase/init.js"></script>
@@ -187,8 +232,9 @@
 		<script type="text/javascript" src="js/wave.js"></script>
 		<script type="text/javascript" src="js/controller.js"></script>
 		<script type="text/javascript" src="js/modal.js"></script>
-		<script type="text/javascript" src="js/uploadError.js"></script>
+		<script type="text/javascript" src="js/userError.js"></script>
 		<script type="text/javascript" src="js/uploadAudio.js"></script>
 		<script type="text/javascript" src="js/getAudio.js"></script>
+		<script type="text/javascript" src="js/handleConfig.js"></script>
 	</body>
 </html>

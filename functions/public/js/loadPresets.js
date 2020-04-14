@@ -3,9 +3,7 @@
  * set initial volume
  ****************/
 
-// TODO: json presets
-
-const drumloops = [
+var drumloops = [
 	"jd89bpm",
 	"db1",
 	"db2",
@@ -28,10 +26,10 @@ var songs = [
 	"antla-vox",
 	"laura"
 ];
-var playback = $("#playback");
-var drums = $("#drumSelect");
-var drumAudio = $("#drumAudio");
-var samples = $("#sampleSelect");
+const playback = $("#playback");
+const drums = $("#drumSelect");
+const drumAudio = $("#drumAudio");
+const samples = $("#sampleSelect");
 
 // add drumloop selection
 addSounds(drums, drumloops);
