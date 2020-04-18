@@ -4,7 +4,7 @@
  * add corresponding controller pads
  ****************/
 
-let initialState = true;
+// TODO: show undo on region drag
 
 // instance of the global WaveSurfer object
 var wavesurfer = WaveSurfer.create({
@@ -26,6 +26,21 @@ samples.change(function() {
 		.attr("url");
 	$(this).blur();
 	loadSample(newSong);
+	checkUndoBtn();
+});
+
+// once file is loaded > get duration, divide into regions
+wavesurfer.on("ready", () => {
+	var duration = wavesurfer.getDuration();
+	var interval = Math.round((duration * 0.9) / 8);
+	addRegions(interval);
+	// add mpc pads to HTML if not already
+	if ($("#pad-container").is(":empty")) addPads();
+});
+
+// on Region edit > show 'undo' btn if needed
+wavesurfer.on("region-updated", () => {
+	checkUndoBtn();
 });
 
 // load new WaveSurfer file
@@ -34,17 +49,6 @@ function loadSample(path) {
 	wavesurfer.clearRegions();
 	wavesurfer.load(`${path}`);
 }
-
-// once file is loaded
-wavesurfer.on("ready", () => {
-	// get duration, divide into regions
-	var duration = wavesurfer.getDuration();
-	var interval = Math.round((duration * 0.9) / 8);
-
-	addRegions(interval);
-
-	if (initialState) addPads();
-});
 
 // set wave regions
 function addRegions(interval) {
@@ -64,12 +68,10 @@ function addRegions(interval) {
 function addPads() {
 	let pads = [1, 2, 3, 4, 5, 6, 7, 8];
 	pads.forEach((pad, index) => {
-		//
 		let color = "hsla(" + index * 50 + ", 75%, 30%, 0.9)";
 
 		$("#pad-container").append(
 			`<div class='pad pad-${pad}' style='color:${color}'></div>`
 		);
 	});
-	initialState = false;
 }

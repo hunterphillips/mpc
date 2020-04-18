@@ -1,5 +1,10 @@
+/*** User Error UI
+ * error messages
+ * show/ hide content
+ */
+
 // store errors by type
-var errorMsgs = {
+const errorMsgs = {
 	fileType: `File type error. Please select an <code>.mp3</code> file no longer than 90 seconds.`,
 	fileLength: `Audio duration limit. Please select an audio file under <code>90</code> seconds in length.`,
 	fileLoad: `Hmm, there was an error reading that file.`,

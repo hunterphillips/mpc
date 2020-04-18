@@ -69,6 +69,8 @@ $("body").keyup(e => {
 // Playback Speed select
 playback.change(function() {
 	wavesurfer.setPlaybackRate($(this).val());
+	// check if config selected > show undo btn
+	checkUndoBtn();
 });
 
 // Volume
@@ -81,6 +83,7 @@ volumeInput.change(function() {
 drums.change(function() {
 	$("#drumSource").attr("src", `/audio/drums/${$(this).val()}.mp3`);
 	document.getElementById("drumAudio").load();
+	checkUndoBtn();
 });
 
 // Play/Pause Drum audio
