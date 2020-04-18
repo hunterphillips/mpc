@@ -36,7 +36,7 @@
 							<img
 								class="mpcIcon"
 								src="img/cassette.png"
-								style="height: 2em;"
+								style="height: 2.25em; opacity: 1;"
 							/>
 						</span>
 						<select name="sampleSelect" id="sampleSelect" class="mpcSelect">
@@ -108,6 +108,9 @@
 						<select name="configSelect" id="configSelect" class="config-select">
 							<option value="" selected disabled hidden>load saved</option>
 						</select>
+						<span class="iconSpan"
+							><img class="mpcIcon" id="undoIcon" src="img/undo.png" alt=""
+						/></span>
 					</div>
 				</div>
 
@@ -180,21 +183,38 @@
 							role="dialog"
 							aria-modal="true"
 							aria-labelledby="modal-config-title"
+							style="text-align: center;"
 						>
-							<input type="text" id="configName" maxlength="15" />
-							<button
-								class="modal__btn"
-								data-custom-close="modal-config"
-								style="background: #94d694;color: white;"
-							>
-								submit
-							</button>
-							<button
-								class="modal__btn cancelBtn"
-								style="background: #ef7171;color: white;"
-							>
-								cancel
-							</button>
+							<p>Save configuration settings</p>
+							<input
+								type="text"
+								id="configName"
+								maxlength="15"
+								placeholder="Name"
+							/>
+							<div style="padding: 1em;">
+								<button
+									class="modal__btn"
+									data-custom-close="modal-config"
+									style="background: #94d694;color: white;"
+								>
+									add new
+								</button>
+								<button
+									class="modal__btn"
+									id="editConfig"
+									data-custom-close="modal-config"
+									style="background: #efb969;color: white;"
+								>
+									edit
+								</button>
+								<button
+									class="modal__btn cancelBtn"
+									style="background: #ef7171;color: white;"
+								>
+									cancel
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>

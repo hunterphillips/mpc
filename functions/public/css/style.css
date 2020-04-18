@@ -15,7 +15,6 @@ body {
 #appContainer::after {
 	content: "";
 	/* background-image: url(/img/wonderwoman.jpg); */
-	/* background-image: url(/img/city.jpg); */
 	background-image: url(/img/ww3.jpg);
 	opacity: 0.75;
 	top: 0;
@@ -24,9 +23,8 @@ body {
 	right: 0;
 	position: absolute;
 	z-index: -1;
-	/* background-size: 96%; */
 	background-size: cover;
-	/* background-position: -88em 0em; */
+	background-position: 0em 3em;
 }
 
 #appInnerwrap {
@@ -98,7 +96,8 @@ select {
 	font-size: 14px;
 	letter-spacing: 0.2px;
 	font-weight: 600;
-	background: radial-gradient(#2fe3fb, #15b3ffcc);
+	/* background: radial-gradient(#2fe3fb, #15b3ffcc); */
+	background: radial-gradient(#7bf4e3, #15beffab);
 	color: #fffaebd4;
 }
 .mpcSelect option {
@@ -218,6 +217,20 @@ select:hover {
 	color: #3e3e3e;
 }
 
+/* revert icon */
+#undoIcon {
+	height: 1.1em;
+	position: absolute;
+	margin-top: 1em;
+	padding-left: 0.5em;
+	opacity: 0.85;
+	display: none;
+}
+#undoIcon:hover {
+	opacity: 1;
+	cursor: pointer;
+}
+
 /* wave */
 #waveform {
 	background: floralwhite;
@@ -241,6 +254,11 @@ select:hover {
 
 .drumIcon {
 	height: 3em;
+}
+
+#drumSelect {
+	background: #ffffff3d;
+	color: gray;
 }
 
 #drumAudio {

@@ -47,3 +47,11 @@ function addSounds(el, sounds) {
 		);
 	});
 }
+
+// track if 'undo' btn should be visible
+function checkUndoBtn() {
+	if (gameState.configSelected && !gameState.undoVisible) {
+		undoBtn.show();
+		gameState.undoVisible = true;
+	}
+}

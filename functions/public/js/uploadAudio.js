@@ -6,7 +6,7 @@ const uploadInput = $("#upload-input"); // upload file input element
 // Upload inital click
 uploadIcon.click(e => {
 	// console.log("upld", e);
-	if (!loggedIn) return showInputPopup(e, "login");
+	if (!gameState.loggedIn) return showInputPopup(e, "login");
 
 	// if demo hasn't been seen
 	if (!hasSeenDemo) {

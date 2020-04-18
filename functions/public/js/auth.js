@@ -1,7 +1,15 @@
-var logout = $("#logoutBtn");
+/*** User login tracking
+ * auth object listener
+ * logout event handler
+ */
+
+const logout = $("#logoutBtn");
 const auth = firebase.auth();
 var userID = "";
-var loggedIn = false;
+
+// state tracking object
+const gameState = {};
+gameState.loggedIn = false;
 
 // check if user logged in --> hide/show login/out buttons accordingly
 auth.onAuthStateChanged(fbUser => {
@@ -10,12 +18,12 @@ auth.onAuthStateChanged(fbUser => {
 		// console.log(fbUser);
 		$("#loginBtn").hide();
 		$("#logoutBtn").show();
-		loggedIn = true;
+		gameState.loggedIn = true;
 	} else {
 		$("#loginBtn").show();
 		$("#logoutBtn").hide();
 		console.log("not logged in");
-		loggedIn = false;
+		gameState.loggedIn = false;
 	}
 });
 

@@ -5,7 +5,12 @@ const configSave = $("#configSave");
 const configModal = $("#modal-config");
 const configName = $("#configName"); // name input field
 const cancelConfig = $("#modal-config .cancelBtn");
+const editConfig = $("#editConfig");
+const undoBtn = $("#undoIcon");
 let currentConfig = {};
+
+// hide Edit config btn unless custom config selected,
+editConfig.hide();
 
 // set current user configuration
 configSave.click(() => {
@@ -15,22 +20,29 @@ configSave.click(() => {
 		drums: drums.val(),
 		regions: getRegionInfo(wavesurfer.regions.list)
 	};
-	currentConfig = config;
+	Object.assign(currentConfig, config);
 	saveUserConfig(); // save to DB
 });
 
 // close config modal
 cancelConfig.click(() => {
-	console.log("config save cancelled");
 	configModal.attr("style", "display: none");
 });
 
 // config select
 configSelect.change(function() {
-	let configName = $(this).val();
-	let configID = $("option:selected", this).attr("data-id");
+	let name = $(this).val();
 	let settings = JSON.parse($("option:selected", this).attr("data-content"));
+	currentConfig.id = $("option:selected", this).attr("data-id");
+	configName.val(name); // add selected name to Name input
+	editConfig.show(); // reveal edit btn
+	gameState.lastSettings = settings; // track current settings
 	setConfig(settings);
+});
+
+// undo changes (revert to last loaded settings)
+undoBtn.click(() => {
+	setConfig(gameState.lastSettings);
 });
 
 // extract needed info from wavesurfer regions.list for FB database
@@ -64,13 +76,21 @@ function saveUserConfig() {
 		},
 		closeTrigger: "data-custom-close"
 	});
+
+	//TODO: edit existing
+	editConfig.click(() => {
+		// currentConfig.id
+		// "db.set()"
+	});
 }
 
 // apply configuration settings
 function setConfig(settings) {
+	// dont change if none needed
+	checkSetting(playback, settings.playback);
+	checkSetting(drums, settings.drums);
+	// always reset sample to reset Regions
 	samples.val(settings.sound).trigger("change");
-	playback.val(settings.playback).trigger("change");
-	drums.val(settings.drums).trigger("change");
 	// wave regions
 	wavesurfer.on("ready", () => {
 		wavesurfer.clearRegions();
@@ -83,4 +103,12 @@ function setConfig(settings) {
 			});
 		});
 	});
+	gameState.configSelected = true;
+}
+
+// check if change is needed for a given setting > apply and trigger change
+function checkSetting(element, newSetting) {
+	if (element.val() !== newSetting) {
+		element.val(newSetting).trigger("change");
+	}
 }

@@ -1,4 +1,6 @@
-// TODO:  > 'add config' UI (name) > load config settings (wave settings)
+/***
+ *
+ */
 
 const myDB = firebase.firestore(); // Firestore DB
 const fbStorage = firebase.storage().ref(); // FB Storage
@@ -18,11 +20,10 @@ auth.onAuthStateChanged(fbUser => {
 			.catch(error => {
 				console.log("User storage error ", error);
 			});
-		myDB // get db collections TODO: uid
+		myDB // get db collections
 			.collection(`user-configs/${userID}/configs`)
 			.get()
 			.then(snapshot => {
-				// return console.log("USER CONFIGS", snapshot.docs);
 				return addUserConfigs(snapshot.docs);
 			})
 			.catch(error => {
