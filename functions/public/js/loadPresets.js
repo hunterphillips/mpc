@@ -13,7 +13,7 @@ var drumloops = [
 	"break3",
 	"trap1",
 	"trap2",
-	"trap3"
+	"trap3",
 ];
 
 var songs = [
@@ -24,7 +24,7 @@ var songs = [
 	"leyla",
 	"moonset",
 	"antla-vox",
-	"laura"
+	"laura",
 ];
 const playback = $("#playback");
 const drums = $("#drumSelect");
@@ -32,21 +32,32 @@ const drumAudio = $("#drumAudio");
 const samples = $("#sampleSelect");
 
 // add drumloop selection
-addSounds(drums, drumloops);
+addSounds(drums, drumloops, "option");
 
 // add sample selection
-addSounds(samples, songs);
+// addSounds(samples, songs, "option");
+addSounds(sampleDropdown, songs, "p");
 
 // set inital drum volume
 drumAudio.prop("volume", 0.5);
 
-function addSounds(el, sounds) {
-	sounds.forEach(sound => {
-		el.append(
-			`<option value="${sound}" url="/audio/${sound}.mp3">${sound}</option>`
-		);
+function addSounds(el, sounds, elementType) {
+	sounds.forEach((sound) => {
+		let child = document.createElement(elementType);
+		let text = document.createTextNode(sound);
+		child.setAttribute("value", sound);
+		child.setAttribute("url", `/audio/${sound}.mp3`);
+		child.append(text);
+		el.append(child);
 	});
 }
+// function addSounds(el, sounds) {
+// 	sounds.forEach(sound => {
+// 		el.append(
+// 			`<option value="${sound}" url="/audio/${sound}.mp3">${sound}</option>`
+// 		);
+// 	});
+// }
 
 // track if 'undo' btn should be visible
 function checkUndoBtn() {

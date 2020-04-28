@@ -36,33 +36,42 @@ padContainer.on("touchend", ".pad", e => {
 });
 
 // Pads (keyboard press)
-$("body").keydown(e => {
-	if (keyList.indexOf(e.key) > -1) {
-		let color = $("." + keyMap[e.key].pad).css("color");
-		$("." + keyMap[e.key].pad).css(
-			"background",
-			`radial-gradient(${color}, #2f2f2f)`
-		);
+keyboardOn();
+// wrap in function to turn keyboard events on/off
+function keyboardOn() {
+	$("body").keydown(e => {
+		if (keyList.indexOf(e.key) > -1) {
+			let color = $("." + keyMap[e.key].pad).css("color");
+			$("." + keyMap[e.key].pad).css(
+				"background",
+				`radial-gradient(${color}, #2f2f2f)`
+			);
 
-		// prevent repeat events
-		if (keyMap[e.key].pressed) return;
-		keyMap[e.key].pressed = true;
+			// prevent repeat events
+			if (keyMap[e.key].pressed) return;
+			keyMap[e.key].pressed = true;
 
-		let targetPad = keyMap[e.key].pad;
-		wavesurfer.regions.list[targetPad].play();
-	}
-	if (e.code === "Space") toggleDrums();
-});
+			let targetPad = keyMap[e.key].pad;
+			wavesurfer.regions.list[targetPad].play();
+		}
+		if (e.code === "Space") toggleDrums();
+	});
 
-$("body").keyup(e => {
-	if (keyList.indexOf(e.key) > -1) {
-		$("." + keyMap[e.key].pad).css(
-			"background",
-			"radial-gradient(#232323, #2f2f2f)"
-		);
-		keyMap[e.key].pressed = false;
-	}
-});
+	$("body").keyup(e => {
+		if (keyList.indexOf(e.key) > -1) {
+			$("." + keyMap[e.key].pad).css(
+				"background",
+				"radial-gradient(#232323, #2f2f2f)"
+			);
+			keyMap[e.key].pressed = false;
+		}
+	});
+}
+
+// turn off keyboard mpc
+function keyboardOff() {
+	$("body").off("keydown keyup");
+}
 
 /** Parameter Controllers **/
 

@@ -4,34 +4,37 @@
  * add corresponding controller pads
  ****************/
 
-// TODO: show undo on region drag
-
 // instance of the global WaveSurfer object
 var wavesurfer = WaveSurfer.create({
 	container: "#waveform",
 	waveColor: "#e2e2e3",
 	progressColor: "purple",
 	responsive: true,
-	//
-	plugins: [WaveSurfer.regions.create({})]
+	plugins: [WaveSurfer.regions.create({})],
 });
 
 // initialize sound file
 wavesurfer.load("/audio/pastels.mp3");
 
 // update wave on sample selection //.find(':selected').attr('isred');
-samples.change(function() {
-	let newSong = $(this)
-		.find(":selected")
-		.attr("url");
-	$(this).blur();
+$("#sampleDropdown p").click(function () {
+	let newSong = $(this).attr("url");
+	let name = $(this).attr("value");
+	sampleSelectBtn.text(name);
 	loadSample(newSong);
 	checkUndoBtn();
 });
+// samples.change(function () {
+// 	let newSong = $(this).find(":selected").attr("url");
+// 	$(this).blur();
+// 	loadSample(newSong);
+// 	checkUndoBtn();
+// });
 
 // once file is loaded > get duration, divide into regions
 wavesurfer.on("ready", () => {
 	var duration = wavesurfer.getDuration();
+	// divide wave graph into '8' equal sections corresponding to the 8 mpc pads
 	var interval = Math.round((duration * 0.9) / 8);
 	addRegions(interval);
 	// add mpc pads to HTML if not already
@@ -59,7 +62,7 @@ function addRegions(interval) {
 			id: "pad-" + (i + 1),
 			start: startTime,
 			end: endTime,
-			color: "hsla(" + i * 50 + ", 75%, 30%, 0.25)"
+			color: "hsla(" + i * 50 + ", 75%, 30%, 0.25)",
 		});
 	}
 }
