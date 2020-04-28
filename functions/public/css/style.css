@@ -104,7 +104,47 @@ select {
 	background: #29caf0;
 	color: #fffaebd4;
 }
+#sampleSelect option:after {
+	content: " ";
+	height: 5px;
+	width: 5px;
+	background: #c00;
+	border-radius: 5px;
+	display: inline-block;
+}
 
+#sampleSelectToggle {
+	text-align: left;
+	border: 1px solid #484848ed;
+}
+#sampleSelectToggle:hover {
+	cursor: pointer;
+}
+#sampleSelectToggle:focus {
+	outline: none;
+}
+
+.arrow-down {
+	border-left: 7px solid transparent;
+	border-right: 7px solid transparent;
+	border-top: 9px solid #fdfdfdb5;
+}
+#sample-div .arrow-down {
+	pointer-events: none;
+	position: absolute;
+	margin-left: -2em;
+	top: 1.3em;
+}
+#sampleDropdown p {
+	transition: all 175ms ease;
+}
+
+#sampleDropdown p:hover {
+	background: #a1f9db;
+	cursor: default;
+}
+
+/* mpc icons */
 .iconSpan {
 	text-align: center;
 }
@@ -119,6 +159,22 @@ select {
 #upload-span .upload:hover {
 	opacity: 0.6;
 	cursor: pointer;
+}
+
+#sampleDropdown span {
+	position: absolute;
+	right: 0;
+	padding-right: 0.3em;
+	opacity: 0.3;
+	transition: all 200ms ease;
+}
+#sampleDropdown span:hover {
+	opacity: 1;
+}
+
+.del-icon {
+	opacity: 1;
+	height: 20px;
 }
 
 /* trimmer link */
@@ -212,7 +268,7 @@ select:hover {
 	cursor: pointer;
 }
 
-#configSelect option {
+#configSelectBtn option {
 	background-color: aquamarine;
 	color: #3e3e3e;
 }
@@ -259,6 +315,10 @@ select:hover {
 #drumSelect {
 	background: #ffffff3d;
 	color: gray;
+}
+#drumSelect option {
+	background: #f5f5f4;
+	color: #888482;
 }
 
 #drumAudio {
