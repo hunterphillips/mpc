@@ -12,7 +12,7 @@ const gameState = {};
 gameState.loggedIn = false;
 
 // check if user logged in --> hide/show login/out buttons accordingly
-auth.onAuthStateChanged(fbUser => {
+auth.onAuthStateChanged((fbUser) => {
 	if (fbUser) {
 		userID = fbUser.uid;
 		// console.log(fbUser);
@@ -35,7 +35,7 @@ logout.click(() => {
 			console.log("logout successful");
 			return location.reload();
 		})
-		.catch(error => {
+		.catch((error) => {
 			console.log("Logout Error: ", error);
 		});
 });

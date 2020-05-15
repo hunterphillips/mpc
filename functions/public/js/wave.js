@@ -17,19 +17,14 @@ var wavesurfer = WaveSurfer.create({
 wavesurfer.load("/audio/pastels.mp3");
 
 // update wave on sample selection //.find(':selected').attr('isred');
-$("#sampleDropdown p").click(function () {
+$("#sampleDropdown").on("click", "p", function () {
 	let newSong = $(this).attr("url");
 	let name = $(this).attr("value");
 	sampleSelectBtn.text(name);
+	sampleSelectBtn.attr("value", name);
 	loadSample(newSong);
 	checkUndoBtn();
 });
-// samples.change(function () {
-// 	let newSong = $(this).find(":selected").attr("url");
-// 	$(this).blur();
-// 	loadSample(newSong);
-// 	checkUndoBtn();
-// });
 
 // once file is loaded > get duration, divide into regions
 wavesurfer.on("ready", () => {

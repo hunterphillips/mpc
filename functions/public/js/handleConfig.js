@@ -1,9 +1,10 @@
 /** User Settings UI
  * edit - add - remove settings
  * save settings popup
+ * select / apply config settings
  */
 
-// TODO: remove, logged in check
+// TODO: logged in check
 
 // configuration UI buttons, "configSelectBtn" element variable already defined
 const configSave = $("#configSave");
@@ -20,7 +21,7 @@ configSave.click(() => {
 		return;
 	}
 	let config = {
-		sound: samples.val(),
+		sound: sampleSelectBtn.val(),
 		playback: playback.val(),
 		drums: drums.val(),
 		regions: getRegionInfo(wavesurfer.regions.list),
@@ -51,19 +52,74 @@ function saveUserConfig() {
 	configModal.attr("style", "display: contents");
 	MicroModal.show("modal-config", {
 		onClose: () => {
-			console.log("close/add");
 			configModal.attr("style", "display: none");
 			keyboardOn();
 			let name = configName.val().trim();
 			if (name.length) {
 				currentConfig.name = name;
-				myDB.collection(`user-configs/${userID}/configs`).add(currentConfig);
-			} else {
-				showError("configName");
-			}
+				myDB
+					.collection(`user-configs/${userID}/configs`)
+					.add(currentConfig)
+					.then((res) => {
+						if (res.id) {
+							let configObj = {
+								settings: currentConfig,
+								id: res.id,
+								name: name,
+							};
+							addUserConfigs([configObj]);
+						}
+						return; // TODO: show success message
+					})
+					.catch((error) => {
+						console.log(error);
+						return showError("configSave");
+					});
+			} else showError("configName");
 		},
 		closeTrigger: "data-custom-close",
 	});
+}
+
+// config select
+configDropdown.on("click", ".config-option", function () {
+	let name = $(this).attr("name");
+	let settings = JSON.parse($(this).attr("data-content"));
+	currentConfig.id = $(this).attr("data-id");
+	configSelectBtn.text(name); // set selected name as button text
+	configName.val(name); // add name to Name input on popup modal
+	editConfig.show(); // reveal edit btn
+	gameState.lastSettings = settings; // track current settings
+	setConfig(settings);
+});
+
+// apply configuration settings
+function setConfig(settings) {
+	checkSetting(playback, settings.playback); // dont change if none needed
+	checkSetting(drums, settings.drums);
+	// always set sample to trigger reset Regions > click target dropdown option to trigger sample select functionality
+	$(`#sampleDropdown p[value=${settings.sound}]`).trigger("click");
+	sampleSelectBtn.text(settings.sound);
+	let regions = JSON.parse(settings.regions);
+	wavesurfer.on("ready", () => {
+		wavesurfer.clearRegions();
+		regions.forEach((region) => {
+			wavesurfer.addRegion({
+				id: region.id,
+				start: region.start,
+				end: region.end,
+				color: region.color,
+			});
+		});
+	});
+	gameState.configSelected = true;
+}
+
+// check if change is needed for a given setting > apply and trigger change
+function checkSetting(element, newSetting) {
+	if (element.val() !== newSetting) {
+		element.val(newSetting).trigger("change");
+	}
 }
 
 // Edit config > db.set()

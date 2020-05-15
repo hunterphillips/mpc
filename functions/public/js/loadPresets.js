@@ -35,7 +35,6 @@ const samples = $("#sampleSelect");
 addSounds(drums, drumloops, "option");
 
 // add sample selection
-// addSounds(samples, songs, "option");
 addSounds(sampleDropdown, songs, "p");
 
 // set inital drum volume
@@ -51,13 +50,6 @@ function addSounds(el, sounds, elementType) {
 		el.append(child);
 	});
 }
-// function addSounds(el, sounds) {
-// 	sounds.forEach(sound => {
-// 		el.append(
-// 			`<option value="${sound}" url="/audio/${sound}.mp3">${sound}</option>`
-// 		);
-// 	});
-// }
 
 // track if 'undo' btn should be visible
 function checkUndoBtn() {
