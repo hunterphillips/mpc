@@ -14,6 +14,10 @@ app.get("/login", (req, res) => {
 	res.sendFile(path.join(__dirname, "public/userAuth.html"));
 });
 
+app.get("/payments", (req, res) => {
+	res.sendFile(path.join(__dirname, "public/payments.html"));
+});
+
 app.get("/timestamp", (req, res) => {
 	res.send(`${Date.now()}`);
 });

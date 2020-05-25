@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Payments</title>
+		<script src="https://js.stripe.com/v2/"></script>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<link
+			rel="stylesheet"
+			href="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.css"
+		/>
+		<link rel="stylesheet" href="css/payments.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div id="app">
+				<div id="firebaseui-auth-container"></div>
+				<div id="loader">&hellip;</div>
+				<div v-if="currentUser">
+					<h2>Hello {{ currentUser.email }},</h2>
+					<button v-on:click="signOut">Sign out</button>
+					<div v-if="stripeCustomerInitialized">
+						<h3>Credit Cards</h3>
+						<ul>
+							<li v-for="source in sources">
+								<span v-if="source.id">
+									{{ source.brand }} &hellip;{{ source.last4 }} (exp. {{
+									source.exp_month }}/{{ source.exp_year }})
+								</span>
+								<span v-else>&hellip;</span>
+							</li>
+						</ul>
+						<div>
+							<h4>New</h4>
+							<div>
+								<label> Number <input v-model="newCreditCard.number" /> </label>
+							</div>
+							<div>
+								<label> CCV <input v-model="newCreditCard.cvc" /> </label>
+							</div>
+							<div>
+								<label>
+									Exp
+									<input v-model="newCreditCard.exp_month" size="2" /> /
+									<input v-model="newCreditCard.exp_year" size="4" />
+								</label>
+							</div>
+							<div>
+								<label>
+									Zip <input v-model="newCreditCard.address_zip" />
+								</label>
+							</div>
+							<div>
+								<button v-on:click="submitNewCreditCard">Add</button>
+								{{ newCreditCard.error }}
+							</div>
+						</div>
+						<h3>Charges</h3>
+						<ul>
+							<li v-for="(charge, id) in charges">
+								{{ charge.amount }}
+								<span v-if="charge.error">
+									{{ charge.error }}
+								</span>
+								<span v-else-if="charge.outcome">
+									{{ charge.outcome.seller_message }} {{ charge.source.brand }}
+									&hellip;{{ charge.source.last4 }} (exp. {{
+									charge.source.exp_month }}/{{ charge.source.exp_year }})
+								</span>
+								<span v-else>&hellip;</span>
+							</li>
+						</ul>
+						<h4>New</h4>
+						<div>
+							<label>
+								Card
+								<select v-model="newCharge.source">
+									<option :value="null">Default payment method</option>
+									<option
+										v-for="(source, id) in sources"
+										v-bind:value="source.id"
+										v-if="source.id"
+									>
+										{{ source.brand }} &hellip;{{ source.last4 }} (exp. {{
+										source.exp_month }}/{{ source.exp_year }})
+									</option>
+								</select>
+							</label>
+						</div>
+						<div>
+							<label> Amount <input v-model="newCharge.amount" /> </label>
+						</div>
+						<div>
+							<button v-on:click="submitNewCharge">Charge</button>
+							{{ newCharge.error }}
+						</div>
+					</div>
+					<div v-else>&hellip;</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="/__/firebase/7.11.0/firebase-app.js"></script>
+
+		<!-- SDKs for Firebase products https://firebase.google.com/docs/web/setup#available-libraries -->
+		<script src="/__/firebase/7.11.0/firebase-auth.js"></script>
+		<script src="/__/firebase/7.11.0/firebase-storage.js"></script>
+		<script src="/__/firebase/7.11.0/firebase-analytics.js"></script>
+		<script src="/__/firebase/7.14.5/firebase-firestore.js"></script>
+		<script src="/__/firebase/7.14.5/firebase-functions.js"></script>
+
+		<!-- Initialize Firebase -->
+		<script src="/__/firebase/init.js"></script>
+
+		<!-- Import Firebase UI -->
+		<script src="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.js"></script>
+
+		<script type="text/javascript" src="js/fb-stripe.js"></script>
+	</body>
+</html>

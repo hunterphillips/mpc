@@ -2,7 +2,7 @@
 const padContainer = $("#pad-container");
 const volumeInput = $("#volumeInput");
 
-// mpc pad objects
+// mpc pad objects > [keyboard key] : { pad }
 const keyMap = {
 	d: { pad: "pad-1", pressed: false },
 	f: { pad: "pad-2", pressed: false },
@@ -10,9 +10,13 @@ const keyMap = {
 	h: { pad: "pad-4", pressed: false },
 	c: { pad: "pad-5", pressed: false },
 	v: { pad: "pad-6", pressed: false },
-	b: { pad: "pad-7", pressed: false },
-	n: { pad: "pad-8", pressed: false }
 };
+
+// add 7th & 8th pads if not mobile device
+if (!is_mobile) {
+	keyMap.b = { pad: "pad-7", pressed: false };
+	keyMap.n = { pad: "pad-8", pressed: false };
+}
 
 const keyList = Object.keys(keyMap);
 
@@ -20,7 +24,7 @@ const keyList = Object.keys(keyMap);
     Pad buttons
 	keyboard/touch behavior
 */
-padContainer.on("touchstart", ".pad", e => {
+padContainer.on("touchstart", ".pad", (e) => {
 	let color = e.target.style.color;
 	let targetPad = e.target.classList[1];
 	$("." + targetPad).css("background", `radial-gradient(${color}, #2f2f2f)`);
@@ -28,7 +32,7 @@ padContainer.on("touchstart", ".pad", e => {
 	wavesurfer.regions.list[targetPad].play();
 });
 
-padContainer.on("touchend", ".pad", e => {
+padContainer.on("touchend", ".pad", (e) => {
 	$("." + e.target.classList[1]).css(
 		"background",
 		"radial-gradient(#232323, #2f2f2f)"
@@ -39,7 +43,7 @@ padContainer.on("touchend", ".pad", e => {
 keyboardOn();
 // wrap in function to turn keyboard events on/off
 function keyboardOn() {
-	$("body").keydown(e => {
+	$("body").keydown((e) => {
 		if (keyList.indexOf(e.key) > -1) {
 			let color = $("." + keyMap[e.key].pad).css("color");
 			$("." + keyMap[e.key].pad).css(
@@ -57,7 +61,7 @@ function keyboardOn() {
 		if (e.code === "Space") toggleDrums();
 	});
 
-	$("body").keyup(e => {
+	$("body").keyup((e) => {
 		if (keyList.indexOf(e.key) > -1) {
 			$("." + keyMap[e.key].pad).css(
 				"background",
@@ -76,20 +80,20 @@ function keyboardOff() {
 /** Parameter Controllers **/
 
 // Playback Speed select
-playback.change(function() {
+playback.change(function () {
 	wavesurfer.setPlaybackRate($(this).val());
 	// check if config selected > show undo btn
 	checkUndoBtn();
 });
 
 // Volume
-volumeInput.change(function() {
+volumeInput.change(function () {
 	let vol = $(this).val() / 100;
 	wavesurfer.setVolume(vol);
 });
 
 // Drum select
-drums.change(function() {
+drums.change(function () {
 	$("#drumSource").attr("src", `/audio/drums/${$(this).val()}.mp3`);
 	document.getElementById("drumAudio").load();
 	checkUndoBtn();
