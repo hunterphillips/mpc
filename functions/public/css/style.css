@@ -442,3 +442,84 @@ a:focus {
 	width: 20em;
 	margin: auto;
 }
+
+/*
+-----------------
+	MEDIA
+-----------------
+ */
+
+@media (max-width: 900px) {
+	/* body {
+		position: fixed;
+	} */
+	#appContainer {
+		overflow-x: hidden;
+	}
+
+	#mpc-containter {
+		max-width: 90vw;
+	}
+
+	#loginContainer {
+		display: none;
+	}
+	#upload-span {
+		display: none;
+	}
+
+	/* Controller */
+	#pad-container {
+		flex-direction: column;
+		/* height: 44vh; */
+		height: 30vh;
+		min-height: 14em;
+		margin: 0;
+		padding: 0.1em 0.35em;
+		width: 83vw;
+		max-width: 85vw;
+		/* max-width: 20em; */
+		/* flex-direction: column-reverse;
+		justify-content: space-between;
+		transform: rotate(90deg); */
+	}
+	.pad {
+		height: 4.1em;
+		width: 4.15em;
+		max-width: 16.5vw;
+		max-height: 17vw;
+	}
+
+	#volume-div {
+		display: none;
+	}
+
+	#trimmerLink {
+		display: none;
+	}
+
+	#playbackSpeed {
+		margin-bottom: auto;
+		width: 2em;
+	}
+	#playbackSpeed .iconSpan {
+		margin-left: auto;
+	}
+
+	#configWrap {
+		display: none;
+	}
+
+	/* Drums */
+	#drumloop-div {
+		flex-direction: row;
+	}
+
+	#drumIconSpan {
+		display: none;
+	}
+
+	.wavesurfer-region {
+		display: inherit;
+	}
+}

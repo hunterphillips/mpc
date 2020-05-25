@@ -15,13 +15,19 @@ gameState.loggedIn = false;
 auth.onAuthStateChanged((fbUser) => {
 	if (fbUser) {
 		userID = fbUser.uid;
-		// console.log(fbUser);
+		// TODO: remove - FOR TESTING ONLY
+		if (userID !== "4bBrOdBPNITmBqu9l2VrnEpapMf1") {
+			return;
+		}
 		$("#loginBtn").hide();
 		$("#logoutBtn").show();
 		gameState.loggedIn = true;
 	} else {
-		$("#loginBtn").show();
+		// $("#loginBtn").show(); /******** COMMENT BACK IN */// *******
 		$("#logoutBtn").hide();
+		/******** REMOVE */
+		$("body").hide();
+		// *******
 		console.log("not logged in");
 		gameState.loggedIn = false;
 	}
