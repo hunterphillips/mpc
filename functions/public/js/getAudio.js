@@ -1,11 +1,12 @@
-/***
- *
+/*** Get user audio
+ * samples
+ * configs
  */
 
-const myDB = firebase.firestore(); // Firestore DB
-const fbStorage = firebase.storage().ref(); // FB Storage
+// myDB, fbStorage already defined
 const editConfig = $("#editConfig");
 const configName = $("#configName"); // name input field
+const configSave = $("#configSave"); // save config btn
 let currentConfig = {};
 var configOption;
 
@@ -20,6 +21,7 @@ auth.onAuthStateChanged((fbUser) => {
 		userStorage
 			.listAll()
 			.then((res) => {
+				gameState.uploadCount = res.items.length || 0;
 				return addUserSamples(uid, res.items);
 			})
 			.catch((error) => {
@@ -29,15 +31,17 @@ auth.onAuthStateChanged((fbUser) => {
 			.collection(`user-configs/${userID}/configs`)
 			.get()
 			.then((snapshot) => {
-				return addUserConfigs(snapshot.docs);
+				if (snapshot.docs.length > 0) {
+					gameState.configCount = snapshot.docs.length;
+					toggleConfigSelect(true);
+					return addUserConfigs(snapshot.docs);
+				} else {
+					return toggleConfigSelect();
+				}
 			})
 			.catch((error) => {
 				console.log("get collections error ", error);
 			});
-		// enable config select button
-		toggleConfigSelect(true);
-	} else {
-		//
 	}
 });
 
@@ -100,6 +104,19 @@ function toggleConfigSelect(enable) {
 			color: "gainsboro",
 			opacity: 0.5,
 			"pointer-events": "none",
+		});
+	}
+	if (!gameState.loggedIn) {
+		configSave.css({
+			color: "gainsboro",
+			opacity: 0.5,
+			"pointer-events": "none",
+		});
+	} else {
+		configSave.css({
+			color: "aquamarine",
+			opacity: 1,
+			"pointer-events": "inherit",
 		});
 	}
 }

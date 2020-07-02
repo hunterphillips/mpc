@@ -11,6 +11,14 @@ if ($("#upload-span").css("display") === "none") {
 	is_mobile = true;
 }
 
+// track selected region
+let regionIdList = [];
+let selectedRegion = {};
+const regionObj = {
+	id: "",
+	selectedIndex: "",
+};
+
 // instance of the global WaveSurfer object
 var wavesurfer = WaveSurfer.create({
 	container: "#waveform",
@@ -49,6 +57,27 @@ wavesurfer.on("region-updated", () => {
 	checkUndoBtn();
 });
 
+// play region on Dbl Click
+wavesurfer.on("region-dblclick", (e) => {
+	e.play();
+});
+
+// highlight clicked region > store selected region id
+wavesurfer.on("region-click", (e) => {
+	if (regionObj.id !== e.id) {
+		e.element.style.border = "3px solid rgb(131, 167, 228)";
+		// remove highlight from previous region
+		if (regionObj.id.length) {
+			$(`[data-id="${regionObj.id}"]`)[0].style.border = "none";
+		}
+		regionObj.id = e.id;
+		regionObj.selectedIndex = findSelectedRegionIndex(regionObj.id);
+	}
+	if (selectedRegion !== e) {
+		selectedRegion = e;
+	}
+});
+
 // load new WaveSurfer file
 function loadSample(path) {
 	wavesurfer.empty();
@@ -68,6 +97,7 @@ function addRegions(interval, numberOfRegions) {
 			color: "hsla(" + i * 50 + ", 75%, 30%, 0.25)",
 		});
 	}
+	regionIdList = Object.keys(wavesurfer.regions.list);
 }
 
 // add drum pad html element and assign a color for each pad
@@ -80,3 +110,63 @@ function addPads(numPads) {
 		);
 	}
 }
+
+// UP & DOWN arrow events > move selected region
+document.onkeydown = function (e) {
+	let key = e.keyCode;
+	if (key === 38 || key === 40) {
+		if (regionObj.id.length) {
+			// add negative if LEFT key
+			selectedRegion.onDrag(key === 40 ? -0.2 : 0.2);
+		}
+	}
+	// L & R arrow events > select next region
+	if (key === 37 || key === 39) {
+		let regionID = regionObj.id.length ? regionObj.id : regionIdList[0];
+
+		let regionIndex = findSelectedRegionIndex(regionID);
+
+		// remove highlight from previous region
+		$(`[data-id="${regionID}"]`)[0].style.border = "none";
+
+		// update selected region params
+		regionObj.selectedIndex = arrowSelectRegionIndex(regionIndex, key);
+		// use index to get ID from idList
+		// use id to match 'wavesurfer.regions.list' object key
+		selectedRegion =
+			wavesurfer.regions.list[regionIdList[regionObj.selectedIndex]];
+
+		regionObj.id = selectedRegion.id;
+		// highlight new region
+		$(`[data-id="${regionObj.id}"]`)[0].style.border =
+			"3px solid rgb(131, 167, 228)";
+	}
+};
+
+// handle choosing next index on arrow key event
+function arrowSelectRegionIndex(previousIndex, keyCode) {
+	let newIndex = "";
+	if (previousIndex === 0 && keyCode === 37) {
+		newIndex = regionIdList.length - 1;
+	} else if (previousIndex === regionIdList.length - 1 && keyCode === 39) {
+		newIndex = 0;
+	} else {
+		newIndex = previousIndex += keyCode === 37 ? -1 : 1;
+	}
+	return newIndex;
+}
+
+// find array index with ID
+function findSelectedRegionIndex(regionID) {
+	return regionIdList.findIndex((id) => {
+		return id === regionID;
+	});
+}
+
+// remove selectedRegion if the user clicks outside of the waveform
+window.onclick = function (event) {
+	if (!event.target.matches("#waveform") && regionObj.id.length) {
+		$(`[data-id="${regionObj.id}"]`)[0].style.border = "none";
+		regionObj.id = "";
+	}
+};

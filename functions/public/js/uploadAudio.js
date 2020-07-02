@@ -4,24 +4,25 @@
  * fb storage handling
  * upload progress UI
  */
-// TODO: check user auth
 
-var hasSeenDemo = false; // track if upload instructions have displayed
 const maxLength = 90; // max audio length (seconds)
 const uploadIcon = $("#upload-span .upload"); // upload icon to click
 const uploadInput = $("#upload-input"); // upload file input element
 const progressContainer = $("#progressContainer");
 const progressInput = $("#progressBar"); // upload progress bar
+const hideDemoBtn = $("#stopDemo");
 
 // Upload inital click
 uploadIcon.click((e) => {
 	if (!gameState.loggedIn) return showInputPopup(e, "login");
 
 	// if demo hasn't been seen
-	if (!hasSeenDemo) {
+	if (!gameState.hasSeenDemo) {
+		hideDemoBtn.show();
 		showInputPopup(e, "instructions");
-		hasSeenDemo = true;
 	}
+	if (uploadLimitReached()) return showInputPopup(e, "freeUploadLimit");
+
 	return true;
 });
 
@@ -59,8 +60,8 @@ function validateAudioFile(filePath, file) {
 // upload audio file to FB storage
 function uploadAudio(file) {
 	let fileName = formatName(file.name) || "unnamed";
-	let userID = auth.currentUser.uid;
-	let storageRef = firebase.storage().ref(`fire_samples/${userID}/${fileName}`);
+	let uid = auth.currentUser.uid;
+	let storageRef = firebase.storage().ref(`fire_samples/${uid}/${fileName}`);
 	let uploadTask = storageRef.put(file);
 	// show progress UI (overlay and progress bar)
 	progressContainer.show();
@@ -76,8 +77,7 @@ function uploadAudio(file) {
 			progressContainer.hide();
 		},
 		() => {
-			// TODO: upload complete UI > add option > select new option
-			console.log("COMPLETED");
+			console.log("upload successful");
 			addSampleDropdownOption(storageRef, fileName, true);
 			progressContainer.hide();
 		}
@@ -87,4 +87,33 @@ function uploadAudio(file) {
 // format file name for db storage
 function formatName(name) {
 	return name.split(".")[0].substr(0, 24).trim();
+}
+
+// 'hide demo' click > update user 'hasSeenDemo' field in DB
+hideDemoBtn.click(() => {
+	hideDemoBtn.hide();
+	myDB.collection("user-configs").doc(userID).set({
+		seenDemo: true,
+	});
+});
+
+// TODO:
+// - update count on upload, show popup for unpaid user
+function uploadLimitReached() {
+	console.log(
+		"customer & count",
+		gameState.isCustomer,
+		gameState.uploadCount,
+		"\nlimit reached",
+		gameState.uploadLimitReached
+	);
+	if (
+		gameState.uploadLimitReached ||
+		(!gameState.isCustomer && gameState.uploadCount > 0)
+	) {
+		if (!gameState.uploadLimitReached) gameState.uploadLimitReached = true;
+		return true;
+	} else {
+		return false;
+	}
 }
