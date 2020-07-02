@@ -3,39 +3,31 @@
  * set initial volume
  ****************/
 
-var drumloops = [
-	"jd89bpm",
-	"db1",
-	"db2",
-	"db3",
-	"break1",
-	"break2",
-	"break3",
-	"trap1",
-	"trap2",
-	"trap3",
-];
-
-var songs = [
-	"hotel-trim",
-	"antla",
-	"night",
-	"drift",
-	"leyla",
-	"moonset",
-	"antla-vox",
-	"laura",
-];
 const playback = $("#playback");
 const drums = $("#drumSelect");
 const drumAudio = $("#drumAudio");
 const samples = $("#sampleSelect");
 
-// add drumloop selection
-addSounds(drums, drumloops, "option");
-
-// add sample selection
-addSounds(sampleDropdown, songs, "p");
+// fetch default sounds > add drums and samples to select inputs
+getLocalSounds();
+function getLocalSounds() {
+	return fetch("/getDefaultSounds", {
+		method: "get",
+		headers: {
+			"Content-Type": "application/json",
+		},
+	})
+		.then((res) => {
+			return res.json();
+		})
+		.then((result) => {
+			addSounds(sampleDropdown, result.samples, "p");
+			return addSounds(drums, result.drums, "option");
+		})
+		.catch((err) => {
+			console.log("Error retrieving sounds", err);
+		});
+}
 
 // set inital drum volume
 drumAudio.prop("volume", 0.5);

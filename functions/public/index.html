@@ -28,7 +28,7 @@
 					<div id="loginBtn" class="auth-btn">
 						<a href="/login">login | sign up</a>
 					</div>
-					<div id="logoutBtn" class="auth-btn">logout</div>
+					<div id="logoutBtn" class="auth-btn">sign out</div>
 				</div>
 
 				<div id="mpc-containter">
@@ -53,9 +53,7 @@
 							</button>
 							<i class="arrow-down"></i>
 							<div id="sampleDropdown" class="dropdown-content">
-								<p value="pastels" class="sample-p" url="/audio/pastels.mp3">
-									pastels
-								</p>
+								<!-- <p value="pastels" class="sample-p" url="/audio/pastels.mp3">pastels</p> -->
 							</div>
 						</div>
 						<!--
@@ -90,8 +88,8 @@
 								class="mpcRangeInput"
 								type="range"
 								min="1"
-								max="100"
-								value="100"
+								max="110"
+								value="75"
 								id="volumeInput"
 							/>
 							<span class="iconSpan"
@@ -150,7 +148,6 @@
 							<img class="mpcIcon drumIcon" src="img/drum-set.png" alt="" />
 						</span>
 						<select name="drumSelect" id="drumSelect" class="mpcSelect">
-							<option value="lofi_87bpm" selected>lofi_87bpm</option>
 						</select>
 					</div>
 
@@ -160,7 +157,7 @@
 					<audio controls loop id="drumAudio">
 						<source
 							id="drumSource"
-							src="audio/drums/lofi_87bpm.mp3"
+							src="audio/drums/AAYJ85.mp3"
 							type="audio/ogg"
 						/>
 					</audio>
@@ -197,6 +194,14 @@
 									aria-label="Close this dialog window"
 								>
 									Close
+								</button>
+								<button
+									class="modal__btn modal__btn"
+									id="stopDemo"
+									data-micromodal-close
+									aria-label="Close this dialog window"
+								>
+									Don't show this message again
 								</button>
 							</footer>
 						</div>
@@ -259,6 +264,16 @@
 						<progress id="progressBar" value="0" max="100">0%</progress>
 					</div>
 				</div>
+
+				<!-- Record button --
+				<div id="recordContainer">
+					<button id="recordBtn"></button>
+					<div class="time">
+						<div class="h_m"></div>
+						<div class="s_ms"></div>
+					</div>
+				</div>
+			-->
 
 				<!--
 					waveform container

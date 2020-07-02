@@ -4,10 +4,7 @@
  * select / apply config settings
  */
 
-// TODO: logged in check
-
-// configuration UI buttons, "configSelectBtn" element variable already defined
-const configSave = $("#configSave");
+// configuration UI buttons, "configSelectBtn" "configSave" element variables already defined
 const configModal = $("#modal-config");
 const cancelConfig = $("#modal-config .cancelBtn");
 const undoBtn = $("#undoIcon");
@@ -16,10 +13,16 @@ const undoBtn = $("#undoIcon");
 editConfig.hide();
 
 // set current user configuration
-configSave.click(() => {
-	if (!gameState.loggedIn) {
+configSave.click((e) => {
+	if (!gameState.isCustomer) {
+		showInputPopup(e, "saveConfigPurchase", "*Premium Feature*");
 		return;
 	}
+	if (gameState.configCount > 99) {
+		showInputPopup(e, "configLimit");
+		return;
+	}
+
 	let config = {
 		sound: sampleSelectBtn.val(),
 		playback: playback.val(),
@@ -29,6 +32,11 @@ configSave.click(() => {
 	Object.assign(currentConfig, config);
 	saveUserConfig(); // save to DB
 });
+
+// check
+function configLimitReached() {
+	return gameState.configCount > 49;
+}
 
 // extract needed info from wavesurfer regions.list for FB database
 function getRegionInfo(regions) {

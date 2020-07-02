@@ -6,24 +6,31 @@ const backBtn = $("#backBtn");
 // use document obj to access native html .checkValidity()
 const emailInput = document.querySelector("#userEmail");
 const passwordInput = document.querySelector("#userPassword");
+// Firestore DB
+const firebaseDB = firebase.firestore();
+
 var auth = firebase.auth();
 
 // sign up click
 signUp.click((e) => {
-	//REMOVE v
-	// return
-	// ADD BACK vvv
-	// let email = emailInput.value.trim();
-	// let password = passwordInput.value.trim();
-	// if (!validateLoginFields(emailInput, email, password)) return;
-	// auth
-	// 	.createUserWithEmailAndPassword(email, password)
-	// 	.then((e) => {
-	// 		return (window.location.href = "/");
-	// 	})
-	// 	.catch((err) => {
-	// 		console.log("Error", err);
-	// 	});
+	let email = emailInput.value.trim();
+	let password = passwordInput.value.trim();
+	if (!validateLoginFields(emailInput, email, password)) return;
+	auth
+		.createUserWithEmailAndPassword(email, password)
+		.then((e) => {
+			// initialize user-config document, add 'seenDemo' field
+			firebaseDB.collection("user-configs").doc(e.user.uid).set({
+				seenDemo: false,
+			});
+			return (window.location.href = "/");
+		})
+		.catch((err) => {
+			console.log("Registration Error", err);
+			if (err.code && err.code.indexOf("email-already-in-use") > -1) {
+				loginError(err.message);
+			}
+		});
 });
 
 // login click
@@ -38,15 +45,15 @@ $("#userPassword").keypress((e) => {
 	}
 });
 
+//todo: remove
+const testUsers = ["b@c.com", "a@d.com", "benlaws@test.com", "jorat@test.com"];
 // login
 function loginUser() {
 	// TODO: REMOVE
-	if (emailInput.value !== "b@c.com") return;
+	if (testUsers.indexOf(emailInput.value) < 0) return;
 
 	let email = emailInput.value.trim();
 	let password = passwordInput.value.trim();
-	if (password !== "password123123") return; // REMOVE
-	password = "password123"; // REMOVE
 	if (!validateLoginFields(emailInput, email, password)) {
 		return;
 	}

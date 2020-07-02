@@ -80,6 +80,7 @@ body {
 	/* background: #88ab9b; */
 	background-size: cover;
 	background-image: url(/img/metallic.jpg);
+	/* box-shadow: 0px 0px 2px #000000ad; */
 }
 
 #mpc-container input,
@@ -134,6 +135,11 @@ select {
 	position: absolute;
 	margin-left: -2em;
 	top: 1.3em;
+}
+#sampleDropdown {
+	/* display: block; */
+	overflow-y: scroll;
+	max-height: 25em;
 }
 #sampleDropdown p {
 	transition: all 175ms ease;
@@ -343,6 +349,14 @@ select:hover {
 	border-radius: 2em;
 }
 
+/* Record btn */
+#recordContainer {
+	height: 0;
+	text-align: center;
+}
+
+/* #recordBtn{} */
+
 /* Tooltip container */
 .tooltip {
 	position: relative;
@@ -385,6 +399,26 @@ a:focus {
 }
 #modal-1-content a:link {
 	text-decoration: none;
+}
+
+/* hide demo btn */
+#stopDemo {
+	color: #ea6666;
+	background: white;
+	border: 1px solid;
+	margin-left: 1em;
+	font-weight: bold;
+	display: none;
+}
+
+#buyNowBtn {
+	border: 1px solid !important;
+	border-radius: 0.25rem;
+	border-radius: 3px;
+	padding: 0.25em 0.5em;
+	margin-top: 0.5em;
+	display: inline-block;
+	font-weight: bold;
 }
 
 /* config modal */
@@ -448,11 +482,19 @@ a:focus {
 	MEDIA
 -----------------
  */
+@media (max-width: 800px) {
+	#appContainer::after {
+		background-position: 117vw 9vh;
+	}
+}
+@media (max-width: 500px) {
+	#appContainer::after {
+		/* background-position: 140vw 26vh; */
+		background-position: 140vw 20vh;
+	}
+}
 
-@media (max-width: 900px) {
-	/* body {
-		position: fixed;
-	} */
+@media (max-width: 700px) {
 	#appContainer {
 		overflow-x: hidden;
 	}
