@@ -56,11 +56,12 @@ function addUserSamples(userID, sounds) {
 
 // add <option> to 'samples' select dropdown > autoSelect default false, if true select the added sample
 function addSampleDropdownOption(storageRef, name, autoSelect = false) {
+	name = name.toString();
 	storageRef
 		.getDownloadURL()
 		.then((url) => {
 			sampleDropdown.append(
-				`<p value="${name}" url="${url}" class="user-sample ">${name}<span><img class="mpcIcon del-icon" src="img/remove.png"/></span></p>`
+				`<p value="${name}" url="${url}" class="user-sample">${name}<span><img class="mpcIcon del-icon" src="img/remove.png"/></span></p>`
 			);
 			return setSample(name, autoSelect);
 		})
@@ -72,7 +73,7 @@ function addSampleDropdownOption(storageRef, name, autoSelect = false) {
 // select sample
 function setSample(name, execute) {
 	if (execute) {
-		$(`#sampleDropdown p[value=${name}]`).trigger("click");
+		$(`#sampleDropdown p[value="${name}"]`).trigger("click");
 		sampleSelectBtn.text(name);
 	}
 }

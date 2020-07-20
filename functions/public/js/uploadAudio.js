@@ -5,12 +5,16 @@
  * upload progress UI
  */
 
-const maxLength = 90; // max audio length (seconds)
+// TODO: seamless upload after instructions
+// - show demo on page load for non auth user > until "don't show again"
+
+const maxLength = 180; // max audio length (seconds)
 const uploadIcon = $("#upload-span .upload"); // upload icon to click
 const uploadInput = $("#upload-input"); // upload file input element
 const progressContainer = $("#progressContainer");
 const progressInput = $("#progressBar"); // upload progress bar
-const hideDemoBtn = $("#stopDemo");
+const stopUploadInstructions = $("#stopUploadInstructions");
+let currentFile;
 
 // Upload inital click
 uploadIcon.click((e) => {
@@ -18,8 +22,8 @@ uploadIcon.click((e) => {
 
 	// if demo hasn't been seen
 	if (!gameState.hasSeenDemo) {
-		hideDemoBtn.show();
-		showInputPopup(e, "instructions");
+		stopUploadInstructions.show();
+		return showInputPopup(e, "instructions");
 	}
 	if (uploadLimitReached()) return showInputPopup(e, "freeUploadLimit");
 
@@ -27,15 +31,16 @@ uploadIcon.click((e) => {
 });
 
 // on upload input event > validate file type/size > upload to FB
+// eslint-disable-next-line consistent-return
 uploadInput.on("change", function (e) {
 	let filePath = this.value;
-	let file = e.target.files[0];
-	if (!filePath || !file) return showError("fileLoad");
-	if (!validateAudioFile(filePath, file)) return false;
-	return uploadAudio(file);
+	currentFile = e.target.files[0];
+	if (!filePath || !currentFile) return showError("fileLoad");
+	validateAudioFile(filePath, currentFile);
 });
 
 // error if file not .mp3 OR over max length
+// eslint-disable-next-line consistent-return
 function validateAudioFile(filePath, file) {
 	let regx = /(?:\.([^.]+))?$/;
 	var ext = regx.exec(filePath)[1];
@@ -51,10 +56,9 @@ function validateAudioFile(filePath, file) {
 		if (audio.duration > maxLength) {
 			return showError("fileLength");
 		}
-		return true;
+		return uploadAudio(currentFile);
 	};
 	audio.src = URL.createObjectURL(file);
-	return true;
 }
 
 // upload audio file to FB storage
@@ -90,11 +94,13 @@ function formatName(name) {
 }
 
 // 'hide demo' click > update user 'hasSeenDemo' field in DB
-hideDemoBtn.click(() => {
-	hideDemoBtn.hide();
+stopUploadInstructions.click(() => {
+	stopUploadInstructions.hide();
 	myDB.collection("user-configs").doc(userID).set({
 		seenDemo: true,
 	});
+	gameState.hasSeenDemo = true;
+	uploadIcon.trigger("click");
 });
 
 // TODO:
@@ -105,7 +111,9 @@ function uploadLimitReached() {
 		gameState.isCustomer,
 		gameState.uploadCount,
 		"\nlimit reached",
-		gameState.uploadLimitReached
+		gameState.uploadLimitReached,
+		"seenDemo: ",
+		gameState.hasSeenDemo
 	);
 	if (
 		gameState.uploadLimitReached ||

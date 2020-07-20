@@ -34,34 +34,48 @@ body {
 	justify-content: space-evenly;
 }
 
-/* login */
-#loginContainer {
+/* side menu */
+#sideMenuContainer {
 	position: absolute;
 	top: 1em;
 	left: 1em;
 	padding: 0.5em;
-	font-size: 1.05em;
-	border-radius: 2px;
-	color: #383838;
+	font-size: 1em;
 	display: flex;
 	flex-direction: column;
+	height: 28em;
 }
-#loginContainer:hover {
+#sideMenuContainer:hover {
 	cursor: pointer;
 }
-#loginContainer:hover .auth-btn {
+
+.side-menu-btn {
+	opacity: 0.5;
+	transition: all 250ms ease;
+	margin-top: 1em;
+	color: #383838;
+}
+.side-menu-btn:hover {
 	opacity: 1;
 }
 
+/* login */
+#loginContainer {
+	border-radius: 2px;
+	display: flex;
+	flex-direction: column;
+}
+
 .auth-btn {
-	opacity: 0.5;
-	transition: all 250ms ease;
 	display: none;
 }
+
 #loginBtn a {
 	color: inherit;
 	text-decoration: none;
 }
+
+/* #demoBtn */
 
 /* mpc */
 #mpc-containter {
@@ -117,6 +131,10 @@ select {
 #sampleSelectToggle {
 	text-align: left;
 	border: 1px solid #484848ed;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding-right: 0.8em;
 }
 #sampleSelectToggle:hover {
 	cursor: pointer;
@@ -402,8 +420,8 @@ a:focus {
 }
 
 /* hide demo btn */
-#stopDemo {
-	color: #ea6666;
+#stopUploadInstructions {
+	color: #4b95e0;
 	background: white;
 	border: 1px solid;
 	margin-left: 1em;
@@ -503,9 +521,10 @@ a:focus {
 		max-width: 90vw;
 	}
 
-	#loginContainer {
+	#sideMenuContainer {
 		display: none;
 	}
+
 	#upload-span {
 		display: none;
 	}

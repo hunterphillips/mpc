@@ -21,6 +21,7 @@ function getLocalSounds() {
 			return res.json();
 		})
 		.then((result) => {
+			drumAudio.prop("volume", 0.8);
 			addSounds(sampleDropdown, result.samples, "p");
 			return addSounds(drums, result.drums, "option");
 		})

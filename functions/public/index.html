@@ -21,14 +21,25 @@
 				-->
 				<div id="fileError" class="error-box"></div>
 
-				<!--
-					login 
-				-->
-				<div id="loginContainer">
-					<div id="loginBtn" class="auth-btn">
-						<a href="/login">login | sign up</a>
+				<div id="sideMenuContainer">
+					<!-- login -->
+					<div id="loginContainer">
+						<div
+							id="loginBtn"
+							class="auth-btn side-menu-btn"
+							style="margin-top: 0 !important;"
+						>
+							<a href="/login">login | sign up</a>
+						</div>
+						<div
+							id="logoutBtn"
+							class="auth-btn side-menu-btn"
+							style="margin-top: 0 !important;"
+						>
+							sign out
+						</div>
 					</div>
-					<div id="logoutBtn" class="auth-btn">sign out</div>
+					<div id="demoBtn" class="side-menu-btn">demo</div>
 				</div>
 
 				<div id="mpc-containter">
@@ -190,18 +201,27 @@
 							<footer class="modal__footer">
 								<button
 									class="modal__btn modal__btn-primary"
+									style="background-color: #f08a8a;"
 									data-micromodal-close
 									aria-label="Close this dialog window"
+									id="modalCloseBtn"
 								>
 									Close
 								</button>
 								<button
 									class="modal__btn modal__btn"
-									id="stopDemo"
+									id="stopUploadInstructions"
 									data-micromodal-close
-									aria-label="Close this dialog window"
+									aria-label="Upload file"
 								>
-									Don't show this message again
+									Upload file
+								</button>
+								<button
+									class="modal__btn modal__btn"
+									id="controllerDemoNext"
+									aria-label="next button"
+								>
+									Next
 								</button>
 							</footer>
 						</div>
@@ -321,5 +341,6 @@
 		<script type="text/javascript" src="js/getAudio.js"></script>
 		<script type="text/javascript" src="js/handleConfig.js"></script>
 		<script type="text/javascript" src="js/removeData.js"></script>
+		<script type="text/javascript" src="js/demo.js"></script>
 	</body>
 </html>

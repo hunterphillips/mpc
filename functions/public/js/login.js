@@ -46,7 +46,16 @@ $("#userPassword").keypress((e) => {
 });
 
 //todo: remove
-const testUsers = ["b@c.com", "a@d.com", "benlaws@test.com", "jorat@test.com"];
+const testUsers = [
+	"b@c.com",
+	"a@d.com",
+	"ben@laws.com",
+	"joe@rat.com",
+	"reynolds@chapman.com",
+	"sam@buttram.com",
+	"montrese@long.com",
+];
+
 // login
 function loginUser() {
 	// TODO: REMOVE
