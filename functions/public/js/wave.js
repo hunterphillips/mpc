@@ -44,6 +44,8 @@ $("#sampleDropdown").on("click", "p", function () {
 // once file is loaded > get duration, divide into regions
 wavesurfer.on("ready", () => {
 	var duration = wavesurfer.getDuration();
+	// max region coverage at 2 min
+	if (duration > 140) duration = 140;
 	// divide wave graph into n equal sections corresponding to n mpc pads
 	let numberOfRegions = is_mobile ? 6 : 8;
 	var interval = Math.round((duration * 0.9) / numberOfRegions);

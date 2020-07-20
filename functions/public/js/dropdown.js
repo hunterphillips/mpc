@@ -18,9 +18,12 @@ sampleSelectBtn.click(() => {
 });
 
 // Close the dropdown if the user clicks outside of it
-window.onclick = function (event) {
-	if (!event.target.matches(".dropbtn")) {
+$(window).click(() => {
+	if (
+		typeof event.target.matches === "function" &&
+		!event.target.matches(".dropbtn")
+	) {
 		configDropdown.hide();
 		sampleDropdown.hide();
 	}
-};
+});

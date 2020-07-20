@@ -14,10 +14,11 @@ editConfig.hide();
 
 // set current user configuration
 configSave.click((e) => {
-	if (!gameState.isCustomer) {
-		showInputPopup(e, "saveConfigPurchase", "*Premium Feature*");
+	// TODO: add back, open for TEST accounts > set isCustomer in FB
+	/*if (!gameState.isCustomer) {
+		showInputPopup(e, "saveConfigPurchaseDemo", "*Premium Feature*");
 		return;
-	}
+	}*/
 	if (gameState.configCount > 99) {
 		showInputPopup(e, "configLimit");
 		return;
