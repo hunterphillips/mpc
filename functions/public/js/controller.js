@@ -6,6 +6,7 @@
 
 const padContainer = $("#pad-container");
 const volumeInput = $("#volumeInput");
+const atmosphereAudio = $("#atmosphereAudio");
 
 // mpc pad objects > [keyboard key] : { pad }
 const keyMap = {
@@ -35,6 +36,9 @@ padContainer.contextmenu(() => false);
 
 // light up touched pad > play region
 padContainer.on("touchstart", ".pad", (e) => {
+	// prevent triggering 'click'
+	e.stopPropagation();
+	e.preventDefault();
 	let color = e.target.style.color;
 	let targetPad = e.target.classList[1];
 	$("." + targetPad).css("background", `radial-gradient(${color}, #2f2f2f)`);
@@ -50,8 +54,10 @@ padContainer.on("touchend", ".pad", (e) => {
 });
 
 // show keyboard info no padContainer click
-padContainer.click((e) => {
-	showInputPopup(e, "keyboardDemo", "Pad contols");
+padContainer.on("click", (e) => {
+	if (e.type === "click") {
+		showInputPopup(e, "keyboardDemo", "Pad contols");
+	}
 });
 
 // Pads (keyboard press)
@@ -73,7 +79,10 @@ function keyboardOn() {
 			let targetPad = keyMap[e.key].pad;
 			wavesurfer.regions.list[targetPad].play();
 		}
-		if (e.code === "Space") toggleDrums();
+		if (e.code === "Space") {
+			// e.preventDefault();
+			toggleDrums();
+		}
 	});
 
 	$("body").keyup((e) => {
@@ -92,7 +101,9 @@ function keyboardOff() {
 	$("body").off("keydown keyup");
 }
 
-/** Parameter Controllers **/
+/*
+  Audio FX Controllers
+*/
 
 // Playback Speed select
 playback.change(function () {
@@ -101,13 +112,24 @@ playback.change(function () {
 	checkUndoBtn();
 });
 
-// Volume
+/* Volume */
 volumeInput.change(function () {
 	let vol = $(this).val() / 100;
 	wavesurfer.setVolume(vol);
 });
 
-// Drum select
+/* Atmosphere */
+atmosphereSelect.change(function () {
+	atmosphereAudio.attr("src", `/audio/atmosphere/${$(this).val()}.mp3`);
+	document.getElementById("atmosphereAudio").load();
+	// TODO: save atmosphere in config // checkUndoBtn();
+});
+// prevent spacebar play/pause
+atmosphereAudio.on("focus", function () {
+	$(this).blur();
+});
+
+/* Drums */
 drums.change(function () {
 	$("#drumSource").attr("src", `/audio/drums/${$(this).val()}.mp3`);
 	document.getElementById("drumAudio").load();
