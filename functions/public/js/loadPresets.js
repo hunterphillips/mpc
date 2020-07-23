@@ -7,6 +7,7 @@ const playback = $("#playback");
 const drums = $("#drumSelect");
 const drumAudio = $("#drumAudio");
 const samples = $("#sampleSelect");
+const atmosphereSelect = $("#atmosphereSelect");
 
 // fetch default sounds > add drums and samples to select inputs
 getLocalSounds();
@@ -23,6 +24,7 @@ function getLocalSounds() {
 		.then((result) => {
 			drumAudio.prop("volume", 0.8);
 			addSounds(sampleDropdown, result.samples, "p");
+			addSounds(atmosphereSelect, result.atmosphere, "option");
 			return addSounds(drums, result.drums, "option");
 		})
 		.catch((err) => {

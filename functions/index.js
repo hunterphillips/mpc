@@ -127,6 +127,9 @@ app.post("/cancel-subscription", async (req, res) => {
 const fs = require("fs");
 let sampleNames = fs.readdirSync(path.join(__dirname, "public/audio/"));
 const drumNames = fs.readdirSync(path.join(__dirname, "public/audio/drums"));
+const atmosphereSounds = fs.readdirSync(
+	path.join(__dirname, "public/audio/atmosphere")
+);
 
 // remove folder names from list (ex. drums)
 sampleNames = sampleNames.filter((name) => {
@@ -136,10 +139,15 @@ sampleNames = sampleNames.filter((name) => {
 // trim extension from file names
 sampleNames.forEach((o, i, a) => (a[i] = a[i].replace(".mp3", "")));
 drumNames.forEach((o, i, a) => (a[i] = a[i].replace(".mp3", "")));
+atmosphereSounds.forEach((o, i, a) => (a[i] = a[i].replace(".mp3", "")));
 
 // GET to fetch sound file names
 app.get("/getDefaultSounds", async (req, res) => {
-	let fileResponse = { samples: sampleNames, drums: drumNames };
+	let fileResponse = {
+		samples: sampleNames,
+		drums: drumNames,
+		atmosphere: atmosphereSounds,
+	};
 	res.send(fileResponse);
 });
 

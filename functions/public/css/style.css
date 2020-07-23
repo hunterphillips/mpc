@@ -339,6 +339,13 @@ select:hover {
 	opacity: 0.04;
 }
 
+/* atmosphere audio */
+#atmosphereDiv {
+	height: 0;
+	display: flex;
+	margin: 0 auto;
+}
+
 /* drums */
 #drumloop-div {
 	display: flex;
