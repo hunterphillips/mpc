@@ -2,7 +2,7 @@
 
 touchscreen/keyboard enabled MPC controller
 
-![screenshot](https://github.com/hunterphillips/mpc/blob/main/public/img/mpcHomeScreen.PNG)
+![screenshot](https://github.com/hunterphillips/mpc/blob/public/img/mpcHomeScreen.PNG)
 
 comes with preset drum loops and sample folder
 
