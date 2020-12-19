@@ -11,7 +11,7 @@
 	</head>
 
 	<body>
-		<h1 style="text-align: center; height: 0; margin: 0; opacity: 0.15;">
+		<h1 style="text-align: center; height: 0; margin: 0; opacity: 0.15">
 			<!-- Beta v1.0 -->
 		</h1>
 		<div id="appContainer">
@@ -27,14 +27,14 @@
 						<div
 							id="loginBtn"
 							class="auth-btn side-menu-btn"
-							style="margin-top: 0 !important;"
+							style="margin-top: 0 !important"
 						>
 							<a href="/login">login | sign up</a>
 						</div>
 						<div
 							id="logoutBtn"
 							class="auth-btn side-menu-btn"
-							style="margin-top: 0 !important;"
+							style="margin-top: 0 !important"
 						>
 							sign out
 						</div>
@@ -47,11 +47,11 @@
 						Sample select
 					-->
 					<div id="sample-div">
-						<span style="vertical-align: middle;">
+						<span style="vertical-align: middle">
 							<img
 								class="mpcIcon"
 								src="img/cassette.png"
-								style="height: 2.25em; opacity: 1;"
+								style="height: 2.25em; opacity: 1"
 							/>
 						</span>
 						<div class="dropdown">
@@ -70,12 +70,12 @@
 						<!--
 							Upload Icon
 						-->
-						<span id="upload-span" style="vertical-align: middle;">
+						<span id="upload-span" style="vertical-align: middle">
 							<label for="upload-input">
 								<img
 									class="mpcIcon upload"
 									src="img/upload.png"
-									style="height: 1.3em;"
+									style="height: 1.3em"
 								/>
 							</label>
 							<input id="upload-input" type="file" accept=".mp3,audio/*" />
@@ -87,7 +87,7 @@
 						>
 					</div>
 
-					<div style="display: flex;">
+					<div style="display: flex">
 						<!--
 							Volume input
 						-->
@@ -153,15 +153,18 @@
 
 				<!-- 
 					Atmosphere audio
-					<div id="atmosphereDiv" style="display: none;">
-						<div id="atmosphereWrap">
-							<span id="atmosphereIconSpan">
-								<img class="mpcIcon" src="img/microphone.png" alt="" />
-							</span>
-							<select name="atomsphereSelect" id="atmosphereSelect" class="">
-							</select>
-						</div>
-					-->
+				 -->
+				<div id="atmosphereDiv" style="display: none">
+					<div id="atmosphereWrap">
+						<span id="atmosphereIconSpan">
+							<img class="mpcIcon" src="img/microphone.png" alt="" />
+						</span>
+						<select
+							name="atomsphereSelect"
+							id="atmosphereSelect"
+							class=""
+						></select>
+					</div>
 
 					<!--
 						loop audio player
@@ -170,7 +173,7 @@
 						controls
 						loop
 						id="atmosphereAudio"
-						style="height: 2em; width: 15em;"
+						style="height: 2em; width: 15em; display: none"
 					>
 						<source
 							id="atmosphereSource"
@@ -184,12 +187,15 @@
 					Drummloops
 				-->
 				<div id="drumloop-div">
-					<div id="drumWrap" style="padding: 1em;">
-						<span id="drumIconSpan" style="vertical-align: top; height: 3em;">
+					<div id="drumWrap" style="padding: 1em">
+						<span id="drumIconSpan" style="vertical-align: top; height: 3em">
 							<img class="mpcIcon drumIcon" src="img/drum-set.png" alt="" />
 						</span>
-						<select name="drumSelect" id="drumSelect" class="mpcSelect">
-						</select>
+						<select
+							name="drumSelect"
+							id="drumSelect"
+							class="mpcSelect"
+						></select>
 					</div>
 
 					<!--
@@ -231,7 +237,7 @@
 							<footer class="modal__footer">
 								<button
 									class="modal__btn modal__btn-primary"
-									style="background-color: #f08a8a;"
+									style="background-color: #f08a8a"
 									data-micromodal-close
 									aria-label="Close this dialog window"
 									id="modalCloseBtn"
@@ -272,7 +278,7 @@
 							role="dialog"
 							aria-modal="true"
 							aria-labelledby="modal-config-title"
-							style="text-align: center;"
+							style="text-align: center"
 						>
 							<p>Save configuration settings</p>
 							<input
@@ -281,24 +287,24 @@
 								maxlength="15"
 								placeholder="Name"
 							/>
-							<div style="padding: 1em;">
+							<div style="padding: 1em">
 								<button
 									class="modal__btn"
 									data-custom-close="modal-config"
-									style="background: #94d694; color: white;"
+									style="background: #94d694; color: white"
 								>
 									add new
 								</button>
 								<button
 									class="modal__btn"
 									id="editConfig"
-									style="background: #efb969; color: white;"
+									style="background: #efb969; color: white"
 								>
 									edit
 								</button>
 								<button
 									class="modal__btn cancelBtn"
-									style="background: #ef7171; color: white;"
+									style="background: #ef7171; color: white"
 								>
 									cancel
 								</button>
